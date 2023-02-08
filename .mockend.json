@@ -1,6 +1,6 @@
 {
   "User": {
-    "name": { "string": "hello"},
+    "name": { "string": {}},
     "tax": { "int": { "min": 10, "max": 200 }}
   },
   "Product": {
