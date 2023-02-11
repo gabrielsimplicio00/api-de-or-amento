@@ -63,7 +63,7 @@ Somente informando o ID
   GET /users/:id
 ```
 
-Nesse caso, será retornado o usuário que corresponde ao ID e, logo abaixo, um objeto representando os produtos que o usuário escolheu, junto ao orçamento total. Como não foi informado um ID de produto o orçamento total retornará 0, além de uma lista vazia de produtos
+Nesse caso, será retornado os dados do usuário que corresponde ao ID e, logo abaixo, uma mensagem informando que ao menos 1 produto deverá ser escolhido no endpoint
 
 | Parâmetro   | Tipo       | Descrição                                   |
 | :---------- | :--------- | :------------------------------------------ |
