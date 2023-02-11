@@ -15,27 +15,27 @@ export class UserService {
     }
   }
 
-  async getUser(id: number, produtosId: string = null): Promise<object | MainDto> {
+  async getUser(id: number, produtosId = ""): Promise<object | MainDto> {
     const regexID = /^\d+$/
     const regexQuery = /\d+/g
-    
-    if(!regexID.test(String(id))) return {erro: 'ID inválido, digite somente números'}
+
+    if (!regexID.test(String(id)) || id < 1) return { erro: 'O ID informado é inválido, somente números inteiros e positivos são aceitos' }
 
     try {
       const users = await (await fetch('https://mockend.com/juunegreiros/BE-test-api/users')).json()
-      
-      if(id > users.length) return {erro: `O usuário de ID ${id} não existe `}
-      
-      let listaProdutosId: string[]; 
+
+      if (id > users.length) return { erro: `O usuário de ID ${id} não existe ` }
+
+      let listaProdutosId: string[];
       const user = users.find(user => user.id == id)
       const tax = user.tax
       let userProducts: object | ReadUserProductsDto;
 
-      if(produtosId){
+      if (produtosId) {
         listaProdutosId = produtosId.match(regexQuery)
         userProducts = await this.getUserProducts(tax, listaProdutosId)
       }
-      if(!produtosId) {
+      if (!produtosId) {
         userProducts = await this.getUserProducts(tax)
       }
 
@@ -49,27 +49,31 @@ export class UserService {
   }
 
   async getUserProducts(userTax: number, listaProdutosId: string[] = []): Promise<object | ReadUserProductsDto> {
+    if (listaProdutosId == null || listaProdutosId.length === 0) {
+      return { message: "Ao menos 1 produto deverá ser escolhido" }
+    }
+
     try {
       const productsFetch = await (await fetch('https://mockend.com/juunegreiros/BE-test-api/products')).json()
       const products: ProductsUserDto[] = [];
       let orcamentoTotal = 0;
-      
-      if(listaProdutosId.length > 0) {
+
+      if (listaProdutosId.length > 0) {
         const wrongId = listaProdutosId.filter(product => !productsFetch.find(item => item.id == product))
         if (wrongId.length > 0) {
-          return {erro: ` Não existe produto(s) com o(s) ID(s) ${wrongId}`}
+          return { erro: ` Não existe produto(s) com o(s) ID(s) ${wrongId}` }
         }
       }
-      
-        for(let i = 0; i < listaProdutosId.length; i++){
-          const index = Number(listaProdutosId[i]) - 1
-          const valorCorrigido = parseFloat(((userTax/100) * productsFetch[index].price).toFixed(2))
-          orcamentoTotal += valorCorrigido
-          products.push({
-            ...productsFetch[index],
-            valorCorrigido
-          })
-        }
+
+      for (let i = 0; i < listaProdutosId.length; i++) {
+        const index = Number(listaProdutosId[i]) - 1
+        const valorCorrigido = parseFloat(((userTax / 100) * productsFetch[index].price).toFixed(2))
+        orcamentoTotal += valorCorrigido
+        products.push({
+          ...productsFetch[index],
+          valorCorrigido
+        })
+      }
 
       orcamentoTotal = parseFloat(orcamentoTotal.toFixed(2))
 
