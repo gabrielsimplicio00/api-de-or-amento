@@ -1,73 +1,116 @@
-<p align="center">
-  <a href="http://nestjs.com/" target="blank"><img src="https://nestjs.com/img/logo-small.svg" width="200" alt="Nest Logo" /></a>
-</p>
 
-[circleci-image]: https://img.shields.io/circleci/build/github/nestjs/nest/master?token=abc123def456
-[circleci-url]: https://circleci.com/gh/nestjs/nest
+# API de orçamento
 
-  <p align="center">A progressive <a href="http://nodejs.org" target="_blank">Node.js</a> framework for building efficient and scalable server-side applications.</p>
-    <p align="center">
-<a href="https://www.npmjs.com/~nestjscore" target="_blank"><img src="https://img.shields.io/npm/v/@nestjs/core.svg" alt="NPM Version" /></a>
-<a href="https://www.npmjs.com/~nestjscore" target="_blank"><img src="https://img.shields.io/npm/l/@nestjs/core.svg" alt="Package License" /></a>
-<a href="https://www.npmjs.com/~nestjscore" target="_blank"><img src="https://img.shields.io/npm/dm/@nestjs/common.svg" alt="NPM Downloads" /></a>
-<a href="https://circleci.com/gh/nestjs/nest" target="_blank"><img src="https://img.shields.io/circleci/build/github/nestjs/nest/master" alt="CircleCI" /></a>
-<a href="https://coveralls.io/github/nestjs/nest?branch=master" target="_blank"><img src="https://coveralls.io/repos/github/nestjs/nest/badge.svg?branch=master#9" alt="Coverage" /></a>
-<a href="https://discord.gg/G7Qnnhy" target="_blank"><img src="https://img.shields.io/badge/discord-online-brightgreen.svg" alt="Discord"/></a>
-<a href="https://opencollective.com/nest#backer" target="_blank"><img src="https://opencollective.com/nest/backers/badge.svg" alt="Backers on Open Collective" /></a>
-<a href="https://opencollective.com/nest#sponsor" target="_blank"><img src="https://opencollective.com/nest/sponsors/badge.svg" alt="Sponsors on Open Collective" /></a>
-  <a href="https://paypal.me/kamilmysliwiec" target="_blank"><img src="https://img.shields.io/badge/Donate-PayPal-ff3f59.svg"/></a>
-    <a href="https://opencollective.com/nest#sponsor"  target="_blank"><img src="https://img.shields.io/badge/Support%20us-Open%20Collective-41B883.svg" alt="Support us"></a>
-  <a href="https://twitter.com/nestframework" target="_blank"><img src="https://img.shields.io/twitter/follow/nestframework.svg?style=social&label=Follow"></a>
-</p>
-  <!--[![Backers on Open Collective](https://opencollective.com/nest/backers/badge.svg)](https://opencollective.com/nest#backer)
-  [![Sponsors on Open Collective](https://opencollective.com/nest/sponsors/badge.svg)](https://opencollective.com/nest#sponsor)-->
+Projeto de middleware feito com o propósito de teste, que busca dados referente a usuários e produtos a partir de uma simulação de banco de dados
 
-## Description
 
-[Nest](https://github.com/nestjs/nest) framework TypeScript starter repository.
+## Rodando localmente
 
-## Installation
+Clone o projeto
 
 ```bash
-$ npm install
+  git clone https://github.com/gabrielsimplicio00/api-de-orcamento
 ```
 
-## Running the app
+Entre no diretório do projeto
 
 ```bash
-# development
-$ npm run start
-
-# watch mode
-$ npm run start:dev
-
-# production mode
-$ npm run start:prod
+  cd api-de-orcamento
 ```
 
-## Test
+Instale as dependências
 
 ```bash
-# unit tests
-$ npm run test
-
-# e2e tests
-$ npm run test:e2e
-
-# test coverage
-$ npm run test:cov
+  npm install
 ```
 
-## Support
+Inicie o servidor de forma estática
 
-Nest is an MIT-licensed open source project. It can grow thanks to the sponsors and support by the amazing backers. If you'd like to join them, please [read more here](https://docs.nestjs.com/support).
+```bash
+  npm run start
+```
 
-## Stay in touch
+Ou inicie um servidor que atualiza dinamicamente a cada mudança de código
 
-- Author - [Kamil Myśliwiec](https://kamilmysliwiec.com)
-- Website - [https://nestjs.com](https://nestjs.com/)
-- Twitter - [@nestframework](https://twitter.com/nestframework)
+```bash
+  npm run start:dev
+```
 
-## License
 
-Nest is [MIT licensed](LICENSE).
+## Documentação da API
+
+Caso esteja rodando o projeto em seu computador, a URL padrão de acesso é:
+
+```http
+  http://localhost:3000
+```
+
+## Rotas existentes
+
+### Retorna todos os usuários
+
+```http
+  GET /users
+```
+
+| Parâmetro   | Tipo       | Descrição                           |
+| :---------- | :--------- | :---------------------------------- |
+| `api_key` | `string` | **Obrigatório**. A chave da sua API |
+
+### Retorna um usuário específico baseado no ID
+
+#### O Endpoint pode ser acessado de duas formas:
+
+Somente informando o ID
+
+```http
+  GET /users/:id
+```
+
+Nesse caso, será retornado o usuário que corresponde ao ID e, logo abaixo, um objeto representando os produtos que o usuário escolheu, junto ao orçamento total. Como não foi informado um ID de produto o orçamento total retornará 0, além de uma lista vazia de produtos
+
+| Parâmetro   | Tipo       | Descrição                                   |
+| :---------- | :--------- | :------------------------------------------ |
+| `id`      | `string` | **Obrigatório**. O ID do usuário que você quer |
+
+#### Ou informando o ID, e em seguida a query string products, seguido de uma lista de IDs do produto
+
+A lista pode ser escrita de duas formas:
+
+```http
+  GET /users/:id?products=[1,2,3]
+```
+
+Ou
+
+```http
+  GET /users/:id?products=1,2,3
+```
+
+Ambos os casos irão retornar os produtos de ID 1, 2, 3, e o orçamento total dos produtos somados (de acordo com a porcentagem de taxa, que é específica de cada usuário), logo abaixo das informações do usuário
+
+### Retorna todos os produtos
+
+```http
+  GET /products
+```
+
+
+## Rodando os testes
+
+Para rodar os testes, escreva o seguinte comando
+
+```bash
+  npm run test
+```
+
+
+## Stack utilizada
+
+**Back-end:** Node.JS, NestJS
+
+
+## Referência
+
+ - [Documentação do NestJS](https://docs.nestjs.com/)
+
