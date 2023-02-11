@@ -1,8 +1,11 @@
 import { Injectable } from '@nestjs/common';
+import { ProductsUserDto } from './dto/products-user.dto';
+import { ReadUserProductsDto } from './dto/read-user-products.dto';
+import { ReadUserDto } from './dto/read-user.dto';
 
 @Injectable()
 export class UserService {
-  async getUsers(): Promise<Array<object>> {
+  async getUsers(): Promise<ReadUserDto[]> {
     try {
       const users = await (await fetch('https://mockend.com/juunegreiros/BE-test-api/users')).json()
       return users;
@@ -22,7 +25,7 @@ export class UserService {
       
       if(id > users.length) return {erro: `O usuário de ID ${id} não existe `}
       
-      let listaProdutosId: Array<string>; 
+      let listaProdutosId: string[]; 
       const user = users.filter((user) => user.id == id)
       const tax = user[0].tax
       let userProducts: object;
@@ -44,16 +47,16 @@ export class UserService {
     }
   }
 
-  async getUserProducts(userTax: number, listaProdutosId: Array<string> = []): Promise<object> {
+  async getUserProducts(userTax: number, listaProdutosId: string[] = []): Promise<ReadUserProductsDto> {
     try {
       const productsFetch = await (await fetch('https://mockend.com/juunegreiros/BE-test-api/products')).json()
-      const products: object[] = [];
+      const products: ProductsUserDto[] = [];
       let orcamentoTotal = 0;
       
       if(listaProdutosId.length > 0) {
         const wrongId = listaProdutosId.filter(product => !productsFetch.find(item => item.id == product))
         if (wrongId.length > 0) {
-          return {erro: ` Não existe produto(s) com o(s) ID(s) ${wrongId}`}
+          throw new Error (` Não existe produto(s) com o(s) ID(s) ${wrongId}`)
         }
       }
       
