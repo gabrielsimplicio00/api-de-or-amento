@@ -6,7 +6,7 @@ import { UserService } from './user.service';
 
 @Controller()
 export class UserController {
-  constructor(private readonly userService: UserService) {}
+  constructor(private readonly userService: UserService) { }
 
   @Get('/users')
   async getUsers(): Promise<ReadUserDto[]> {
@@ -14,11 +14,11 @@ export class UserController {
   }
 
   @Get('/users/:id')
-  async getUser(@Param('id') id: number, @Query('products') listaProdutos: string): Promise<object | MainDto> {
-    if(listaProdutos){
+  async getUser(@Param('id') id: number, @Query('products') listaProdutos?: string): Promise<object | MainDto> {
+    if (listaProdutos) {
       return this.userService.getUser(id, listaProdutos)
     } else {
       return this.userService.getUser(id)
-    } 
+    }
   }
 }
