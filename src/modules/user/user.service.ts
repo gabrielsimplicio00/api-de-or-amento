@@ -37,7 +37,7 @@ export class UserService {
 
       return {
         user: user,
-        products: userProducts
+        userProducts: userProducts
       }
     } catch (error) {
       throw new Error(error)
