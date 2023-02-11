@@ -53,10 +53,6 @@ Caso esteja rodando o projeto em seu computador, a URL padrão de acesso é:
   GET /users
 ```
 
-| Parâmetro   | Tipo       | Descrição                           |
-| :---------- | :--------- | :---------------------------------- |
-| `api_key` | `string` | **Obrigatório**. A chave da sua API |
-
 ### Retorna um usuário específico baseado no ID
 
 #### O Endpoint pode ser acessado de duas formas:
