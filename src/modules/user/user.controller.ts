@@ -8,6 +8,15 @@ import { UserService } from './user.service';
 export class UserController {
   constructor(private readonly userService: UserService) { }
 
+  @Get()
+  routes(): object {
+    return {
+      listarUsuarios: "localhost:3000/users",
+      listarProdutos: "localhost:3000/products",
+      listarUsuarioEProdutosPeloId: "localhost:3000/users/:id?products=1,2,3",
+    }
+  }
+
   @Get('/users')
   async getUsers(): Promise<ReadUserDto[]> {
     return this.userService.getUsers();
