@@ -1,5 +1,5 @@
 import { Injectable } from '@nestjs/common';
-// import { MainDto } from 'src/main.dto';
+import { MainDto } from 'src/main.dto';
 import { ProductsUserDto } from './dto/products-user.dto';
 import { ReadUserProductsDto } from './dto/read-user-products.dto';
 import { ReadUserDto } from './dto/read-user.dto';
@@ -15,7 +15,7 @@ export class UserService {
     }
   }
 
-  async getUser(id: number, produtosId: string = null): Promise<object> {
+  async getUser(id: number, produtosId: string = null): Promise<object | MainDto> {
     const regexID = /^\d+$/
     const regexQuery = /\d+/g
     
