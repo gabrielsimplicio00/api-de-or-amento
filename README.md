@@ -1,7 +1,7 @@
 
 # API de orçamento
 
-Projeto de middleware feito com o propósito de teste, que busca dados referente a usuários e produtos a partir de uma simulação de banco de dados
+Projeto de middleware feito com o propósito de teste, que busca dados referente a usuários e produtos a partir de uma simulação de back-end
 
 
 ## Rodando localmente
