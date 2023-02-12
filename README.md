@@ -53,6 +53,12 @@ Caso esteja rodando o projeto em seu computador, a URL padrão de acesso é:
   GET /users
 ```
 
+### Retorna todos os produtos
+
+```http
+  GET /products
+```
+
 ### Retorna um usuário específico baseado no ID
 
 #### O Endpoint pode ser acessado de duas formas:
@@ -85,13 +91,6 @@ Ou
 
 Ambos os casos irão retornar os produtos de ID 1, 2, 3, e o orçamento total dos produtos somados (de acordo com a porcentagem de taxa, que é específica de cada usuário), logo abaixo das informações do usuário
 
-### Retorna todos os produtos
-
-```http
-  GET /products
-```
-
-
 ## Rodando os testes
 
 Para rodar os testes, escreva o seguinte comando
@@ -100,11 +99,9 @@ Para rodar os testes, escreva o seguinte comando
   npm run test
 ```
 
-
 ## Stack utilizada
 
 **Back-end:** Node.JS, NestJS
-
 
 ## Referência
 
