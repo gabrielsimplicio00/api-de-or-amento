@@ -4,30 +4,27 @@ import { MainDto } from 'src/main.dto';
 import { ReadUserDto } from './dto/read-user.dto';
 import { UserService } from './user.service';
 
-@Controller()
+@Controller('/users')
 export class UserController {
   constructor(private readonly userService: UserService) { }
 
   @Get()
-  routes(): object {
-    return {
-      listarUsuarios: "localhost:3000/users",
-      listarProdutos: "localhost:3000/products",
-      listarUsuarioEProdutosPeloId: "localhost:3000/users/:id?products=1,2,3",
+  async getUsers(): Promise<ReadUserDto[]> {
+    try {
+      return this.userService.getUsers();
+    } catch (error) {
+      throw new Error(error)
     }
   }
 
-  @Get('/users')
-  async getUsers(): Promise<ReadUserDto[]> {
-    return this.userService.getUsers();
-  }
-
-  @Get('/users/:id')
+  @Get(':id')
   async getUser(@Param('id') id: number, @Query('products') listaProdutos?: string): Promise<object | MainDto> {
-    if (listaProdutos) {
+    try {
+      //A query string é opcional afim de tratar o erro de não enviá-la de forma mais amigável, sem status code 500
+      if (!listaProdutos) return this.userService.getUser(id)
       return this.userService.getUser(id, listaProdutos)
-    } else {
-      return this.userService.getUser(id)
+    } catch (error) {
+      throw new Error(error)
     }
   }
 }
