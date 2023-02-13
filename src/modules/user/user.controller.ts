@@ -10,18 +10,22 @@ export class UserController {
 
   @Get()
   async getUsers(): Promise<ReadUserDto[]> {
-    try {
+    try { //chama o método no service de usuários para lidar com a requisição
       return this.userService.getUsers();
     } catch (error) {
       throw new Error(error)
     }
   }
 
-  @Get(':id')
-  async getUser(@Param('id') id: number, @Query('products') listaProdutos?: string): Promise<object | MainDto> {
+  @Get(':id') // caso no endpoint só seja digitado o ID, um objeto será retornado sem as informações de produtos, apenas de usuário
+  async getUser(@Param('id') id: number): Promise<object | MainDto> {
+    return this.userService.getUser(id)
+  }
+
+  @Get(':id/calculaProdutos')
+  async getUserAndProducts(@Param('id') id: number, @Query('produtosId') listaProdutos: string): Promise<object | MainDto> {
     try {
-      //A query string é opcional afim de tratar o erro de não enviá-la de forma mais amigável, sem status code 500
-      if (!listaProdutos) return this.userService.getUser(id)
+      if (!listaProdutos) return this.userService.getUser(id) // caso a query string não seja fornecida, o erro é tratado de forma mais amigável no service
       return this.userService.getUser(id, listaProdutos)
     } catch (error) {
       throw new Error(error)

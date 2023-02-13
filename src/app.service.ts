@@ -6,7 +6,7 @@ export class AppService {
     return {
       listarUsuarios: "localhost:3000/users",
       listarProdutos: "localhost:3000/products",
-      listarUsuarioEProdutosPeloId: "localhost:3000/users/:id?products=1,2,3",
+      listarUsuarioEProdutosPeloId: "localhost:3000/users/:id/calculaProdutos?produtosId=1,2,3",
     }
   }
 }
