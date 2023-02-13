@@ -58,7 +58,7 @@ Caso esteja rodando o projeto em seu computador, a URL padrão de acesso é:
 
 ### Retorna um usuário específico baseado no ID, e os produtos correspondentes a ele
 
-#### O Endpoint pode ser acessado informando o ID, a rota calculaProdutos e em seguida a query string produtosId, seguido de uma lista de IDs do produto     
+#### O Endpoint pode ser acessado informando o ID, a rota calculaProdutos e em seguida a query string produtosId, seguido de uma lista de IDs dos produtos     
 #
 
 E pode ser escrita de duas formas:
