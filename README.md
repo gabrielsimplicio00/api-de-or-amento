@@ -2,8 +2,6 @@
 # API de orçamento
 
 Projeto de middleware feito com o propósito de teste, que busca dados referente a usuários e produtos a partir de uma simulação de back-end
-
-
 ## Rodando localmente
 
 Clone o projeto
@@ -36,7 +34,6 @@ Ou inicie um servidor que atualiza dinamicamente a cada mudança de código
   npm run start:dev
 ```
 
-
 ## Documentação da API
 
 Caso esteja rodando o projeto em seu computador, a URL padrão de acesso é:
@@ -63,7 +60,8 @@ Caso esteja rodando o projeto em seu computador, a URL padrão de acesso é:
 
 #### O Endpoint pode ser acessado de duas formas:
 
-#### Informando o ID, a rota calculaProdutos e em seguida a query string produtosId, seguido de uma lista de IDs do produto
+##### Informando o ID, a rota calculaProdutos e em seguida a query string produtosId, seguido de uma lista de IDs do produto     
+#
 
 Que pode ser escrita de duas formas:
 
@@ -83,14 +81,6 @@ Ambos os casos irão retornar os produtos de ID 1, 2, 3, e o orçamento total do
 | :---------- | :--------- | :------------------------------------------ |
 | `id`      | `string` | **Obrigatório**. O ID do usuário que você quer |
 
-#### Ou somente informando o ID com a rota calculaProdutos
-
-```http
-  GET /users/:id/calculaProduto
-```
-
-Nesse caso, será retornado os dados do usuário que corresponde ao ID e, logo abaixo, uma mensagem informando que deve haver ao menos 1 produto digitado na query
-
 ## Rodando os testes
 
 Para rodar os testes, escreva o seguinte comando
@@ -99,9 +89,11 @@ Para rodar os testes, escreva o seguinte comando
   npm run test
 ```
 
+
 ## Stack utilizada
 
 **Back-end:** Node.JS, NestJS
+
 
 ## Referência
 
