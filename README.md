@@ -59,37 +59,37 @@ Caso esteja rodando o projeto em seu computador, a URL padrão de acesso é:
   GET /products
 ```
 
-### Retorna um usuário específico baseado no ID
+### Retorna um usuário específico baseado no ID, e os produtos correspondentes a ele
 
 #### O Endpoint pode ser acessado de duas formas:
 
-Somente informando o ID
+#### Informando o ID, a rota calculaProdutos e em seguida a query string produtosId, seguido de uma lista de IDs do produto
+
+Que pode ser escrita de duas formas:
 
 ```http
-  GET /users/:id
-```
-
-Nesse caso, será retornado os dados do usuário que corresponde ao ID e, logo abaixo, uma mensagem informando que ao menos 1 produto deverá ser escolhido no endpoint
-
-| Parâmetro   | Tipo       | Descrição                                   |
-| :---------- | :--------- | :------------------------------------------ |
-| `id`      | `string` | **Obrigatório**. O ID do usuário que você quer |
-
-#### Ou informando o ID, e em seguida a query string products, seguido de uma lista de IDs do produto
-
-A lista pode ser escrita de duas formas:
-
-```http
-  GET /users/:id?products=[1,2,3]
+  GET /users/:id/calculaProdutos?produtosId=[1,2,3]
 ```
 
 Ou
 
 ```http
-  GET /users/:id?products=1,2,3
+  GET /users/:id/calculaProdutos?produtosId=1,2,3
 ```
 
 Ambos os casos irão retornar os produtos de ID 1, 2, 3, e o orçamento total dos produtos somados (de acordo com a porcentagem de taxa, que é específica de cada usuário), logo abaixo das informações do usuário
+
+| Parâmetro   | Tipo       | Descrição                                   |
+| :---------- | :--------- | :------------------------------------------ |
+| `id`      | `string` | **Obrigatório**. O ID do usuário que você quer |
+
+#### Ou somente informando o ID com a rota calculaProdutos
+
+```http
+  GET /users/:id/calculaProduto
+```
+
+Nesse caso, será retornado os dados do usuário que corresponde ao ID e, logo abaixo, uma mensagem informando que deve haver ao menos 1 produto digitado na query
 
 ## Rodando os testes
 

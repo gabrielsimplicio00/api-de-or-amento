@@ -8,7 +8,7 @@ export class ProductController {
 
   @Get()
   async getProducts(): Promise<object | ReadProductsDto[]> {
-    try {
+    try { //chama o método no service de produtos para lidar com a requisição
       return this.productService.getProducts()
     } catch (error) {
       throw new Error(error)
