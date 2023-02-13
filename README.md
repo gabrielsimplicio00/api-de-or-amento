@@ -88,10 +88,20 @@ Ambos os casos irão retornar os produtos de ID 1, 2, 3, e o orçamento total do
 
 ## Rodando os testes
 
-Para rodar os testes, escreva o seguinte comando
+Para rodar os testes, escreva o seguinte comando:
 
 ```bash
   npm run test
+```
+
+Os testes específicos de cada módulo se encontram dentro de suas respectivas pastas:
+
+```bash
+  # pasta de testes do produto
+  src/modules/product/test
+
+  # pasta de testes do usuário
+  src/modules/user/test
 ```
 
 
